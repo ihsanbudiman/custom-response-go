@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"encoding/json"
 	rest_domain "kocag/domain/rest"
 	"kocag/usecase"
 	"net/http"
@@ -16,8 +15,8 @@ type Handler struct {
 
 func (handler *Handler) InsertProduct(w http.ResponseWriter, r *http.Request) {
 	req := rest_domain.InsertProductRequest{}
+	err := req.Validate(r)
 
-	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {
 		handler.response.HttpError(w, err)
 		return
